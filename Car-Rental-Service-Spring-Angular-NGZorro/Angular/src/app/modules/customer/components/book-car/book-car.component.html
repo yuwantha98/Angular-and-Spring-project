@@ -1,61 +1,73 @@
-<div style="background-color: #F8F8F8; min-height: 91vh;">
+<div style="background-color: #F8F8F8; min-height: 91vh; padding-top: 20px;">
+  <div class="d-flex justify-content-center">
+    <div class="p-5 border bg-white rounded shadow-sm" style="width: 90%; max-width: 90%; margin-top: 30px;">
 
-    <div style="padding-top: 10px;"></div>
-
-    <div style="margin-top:10px;" class="child" *ngIf="car">
-        <div nz-row>
-            <div nz-col nzSpan="8">
-                <img class="profile" style="height: 130px; width: 200px; border-radius: 10px;" [src]="car.processedImg"
-                    alt="profile" />
-            </div>
-            <div nz-col nzSpan="16">
-                <h2 style="cursor: pointer; color: #108ee9;">
-                    {{car.brand}} - {{car.name}}</h2>
-                <p>{{car.description}}</p>
-
-                <hr>
-                <h5>Price : <b>${{car.price}}</b> - Color : <b>{{car.color}}</b> - Transmission :
-                    <b>{{car.transmission}}</b> - Type : <b>{{car.type}}</b> - Year : <b>{{car.modelYear | date:
-                        'yyyy'}}</b>
-                </h5>
-                <hr>
+      <!-- Booking Form Section -->
+      <nz-spin [nzSpinning]="isSpinning" nzSize="large" nzTip="Working...">
+        <form [formGroup]="bookACarForm">
+          <div class="row g-3 mb-4 align-items-end">
+            <!-- From Date -->
+            <div class="col-md-5">
+              <label for="fromDate" class="form-label fw-semibold">From Date</label>
+              <nz-date-picker formControlName="fromDate" class="form-control" nzPlaceHolder="From Date"
+                              [nzFormat]="dateFormat" id="fromDate">
+              </nz-date-picker>
             </div>
 
+            <!-- To Date -->
+            <div class="col-md-5">
+              <label for="toDate" class="form-label fw-semibold">To Date</label>
+              <nz-date-picker formControlName="toDate" class="form-control" nzPlaceHolder="To Date"
+                              [nzFormat]="dateFormat" id="toDate">
+              </nz-date-picker>
+            </div>
+
+            <!-- Book Car Button -->
+            <div class="col-md-2 text-center">
+              <button class="btn btn-primary w-100 fw-bold"
+                      style="background-color: #108ee9; border: none; padding: 10px 0;"
+                      (click)="bookCar(bookACarForm.value)">
+                Book Car
+              </button>
+            </div>
+          </div>
+        </form>
+      </nz-spin>
+
+      <!-- Car Image Section -->
+      <div class="row mt-5 mb-4">
+        <div class="col-12 d-flex justify-content-center">
+          <img class="profile shadow-sm" style="height: 250px; width: 415px; border-radius: 10px;"
+               [src]="car.processedImg" alt="Car Image" />
         </div>
+      </div>
+
+      <!-- Car Details Section -->
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 style="cursor: pointer; color: #108ee9; font-weight: bold; margin-bottom: 10px;">
+            {{car.brand}} - {{car.name}}
+          </h2>
+          <p class="text-muted" style="font-size: 1rem; font-style: italic; margin-bottom: 20px;">
+            {{car.description}}
+          </p>
+          <hr style="margin: 20px 0;">
+          <h5 class="fw-normal" style="font-size: 1.2rem; line-height: 2.2; color: #333; padding: 10px;">
+            <span class="fw-semibold ">Price:</span> <span style="color: #555;">${{car.price}}</span>
+            <span class="mx-3">|</span>
+            <span class="fw-semibold">Color:</span> <span style="color: #555;">{{car.color}}</span>
+            <span class="mx-3">|</span>
+            <span class="fw-semibold">Transmission:</span> <span style="color: #555;">{{car.transmission}}</span>
+            <span class="mx-3">|</span>
+            <span class="fw-semibold">Type:</span> <span style="color: #555;">{{car.type}}</span>
+            <span class="mx-3">|</span>
+            <span class="fw-semibold">Year:</span> <span style="color: #555;">{{car.modelYear | date: 'yyyy'}}</span>
+          </h5>
+          <hr style="margin: 20px 0;">
+        </div>
+      </div>
+
+
     </div>
-    <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="Working..." style="margin-top: 50px;">
-        <div class="dashboard-filter">
-            <form [formGroup]="bookACarForm">
-                <div class="filter-grid">
-                    <div class="filter-select-dropdown filter-fields-width">
-
-                        <nz-form-item style="margin-left: 50px;">
-                            <nz-form-label [nzSpan]="0" nzFor="From Date">From Date</nz-form-label>
-                            <nz-form-control [nzSpan]="0">
-                                <nz-date-picker formControlName="fromDate" style="width: 100%;"
-                                    nzPlaceHolder="From Date" name="From Date" [nzFormat]="dateFormat" id="From Date">
-                                </nz-date-picker>
-                            </nz-form-control>
-                        </nz-form-item>
-
-                        <nz-form-item style="margin-left: 100px;">
-                            <nz-form-label [nzSpan]="0" nzFor="To Date">To Date</nz-form-label>
-                            <nz-form-control [nzSpan]="0">
-                                <nz-date-picker formControlName="toDate" style="width: 100%;" nzPlaceHolder="To Date"
-                                    name="To Date" [nzFormat]="dateFormat" id="To Date">
-                                </nz-date-picker>
-                            </nz-form-control>
-                        </nz-form-item>
-
-                    </div>
-
-                    <div class="filter-select-dropdown filter-fields-width">
-                        <button class="filterBtn" style="margin-left: 45px;" nz-button nzType="primary"
-                            (click)="bookCar(bookACarForm.value)">Book
-                            Car</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </nz-spin>
+  </div>
 </div>
