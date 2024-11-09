@@ -1,5 +1,23 @@
+.top-image {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  margin-top: 0;
+  z-index: 1;
+}
+
+.top-image img {
+  width: 100%;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  object-fit: cover;
+}
+
+
 .login-form {
-    max-width: 300px;
+    max-width: 400px;
 }
 
 .imgDiv {
@@ -19,27 +37,34 @@
 
 .login-form-button {
     width: 100%;
+    font-weight: bold;
 }
 
 .child {
-    padding: 50px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    padding-right:50px;
     position: absolute;
-    width: 380px;
+    width: 400px;
     background-color: white;
-    top: 50%;
+    top: 120px;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
     box-shadow: 1px 1px 15px -7px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+    border: 1px solid #e6e6e6;
     margin-bottom: 32px;
+    z-index: 1;
+
 }
 
-.parent {
-    width: 100%;
-    height: 91vh;
-    position: relative;
-}
+// .parent {
+//     width: 100%;
+//     height: 91vh;
+//     position: relative;
+// }
 
 button {
     background-color: #001529;
