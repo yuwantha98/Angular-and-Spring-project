@@ -1,6 +1,5 @@
 .parent {
     width: 100%;
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,8 +7,7 @@
 
 .child {
     padding: 50px;
-    width: 100%;
-    max-width: 680px;
+    width: 80%;
     background-color: white;
     box-shadow: 1px 1px 15px -7px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -40,8 +38,9 @@
 }
 
 .upload-icon {
-    width: 70px;
-    height: 35px;
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
     margin-top: 10px;
 }
 
