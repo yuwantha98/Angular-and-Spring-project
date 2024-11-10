@@ -16,7 +16,7 @@ export class PostCarComponent {
   selectedFile: File | null;
   imagePreview: string | ArrayBuffer | null;
   listOfOption: Array<{ label: string; value: string }> = [];
-  listOfBrands = ["BMW", "AUDI", "FERRARI", "TESLA", "VOLVO", "TOYOTA", "HONDA", "FORD", "NISSAN", "HYUNDAI", "LEXUS", "KIA"];
+  listOfBrands = ["BMW", "AUDI", "FERRARI", "TESLA", "VOLVO", "TOYOTA", "HONDA","SUZUKI", "FORD", "NISSAN", "HYUNDAI", "LEXUS", "KIA"];
   listOfType = ["Petrol", "Hybrid", "Diesel", "Electric", "CNG"];
   listOfColor = ["Red", "White", "Blue", "Black", "Orange", "Grey", "Silver"];
   listOfTransmission = ["Manual", "Automatic"];
