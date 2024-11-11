@@ -5,68 +5,75 @@
 
 <div class="container mt-4 mb-5" style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); margin-bottom:20px;">
 
-  <!-- Filter Section -->
-  <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="Working...">
-    <div class="dashboard-filter">
-      <div class="filter-grid row gx-4 gy-3" [formGroup]="validateForm" style="margin-bottom: 20px;">
+  <!-- Spinner Replacement -->
+  <div *ngIf="isSpinning" class="spinner">
+    <p>Working...</p>
+  </div>
 
-        <!-- Brand Filter -->
-        <div class="col-md-3">
-          <nz-form-item>
-            <nz-form-label nzFor="brand" style="font-weight: bold; color: #003973;">Brand</nz-form-label>
-            <nz-form-control nzErrorTip="This Input Is Required!">
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Brand" formControlName="brand">
-                <nz-option *ngFor="let brand of listOfBrands" nzLabel="{{brand}}" nzValue="{{brand}}"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+  <div class="dashboard-filter" *ngIf="!isSpinning">
+    <div class="filter-grid row gx-4 gy-3" [formGroup]="validateForm" style="margin-bottom: 20px;">
 
-        <!-- Type Filter -->
-        <div class="col-md-3">
-          <nz-form-item>
-            <nz-form-label nzFor="type" style="font-weight: bold; color: #003973;">Type</nz-form-label>
-            <nz-form-control nzErrorTip="This Input Is Required!">
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Type" formControlName="type">
-                <nz-option *ngFor="let type of listOfType" nzLabel="{{type}}" nzValue="{{type}}"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-
-        <!-- Color Filter -->
-        <div class="col-md-3">
-          <nz-form-item>
-            <nz-form-label nzFor="color" style="font-weight: bold; color: #003973;">Color</nz-form-label>
-            <nz-form-control nzErrorTip="This Input Is Required!">
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Color" formControlName="color">
-                <nz-option *ngFor="let color of listOfColor" nzLabel="{{color}}" nzValue="{{color}}"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-
-        <!-- Transmission Filter -->
-        <div class="col-md-3">
-          <nz-form-item>
-            <nz-form-label nzFor="transmission" style="font-weight: bold; color: #003973;">Transmission</nz-form-label>
-            <nz-form-control nzErrorTip="This Input Is Required!">
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Transmission" formControlName="transmission">
-                <nz-option *ngFor="let transmission of listOfTransmission" nzLabel="{{transmission}}" nzValue="{{transmission}}"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-
-        <!-- Search Button -->
-        <div class="col-12 text-end mt-3">
-          <button class="btn btn-primary fw-bold" nz-button nzType="primary" (click)="searchCar()" style="padding-bottom:32px">
-            Search Car
-          </button>
+      <!-- Brand Filter -->
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="brand" style="font-weight: bold; color: #003973;">Brand</label>
+          <select id="brand" formControlName="brand" class="form-control" placeholder="Brand">
+            <option *ngFor="let brand of listOfBrands" [value]="brand">{{ brand }}</option>
+          </select>
+          <small *ngIf="validateForm.controls['brand'].hasError('required') && validateForm.controls['brand'].touched" class="text-danger">
+            This Input Is Required!
+          </small>
         </div>
       </div>
+
+      <!-- Type Filter -->
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="type" style="font-weight: bold; color: #003973;">Type</label>
+          <select id="type" formControlName="type" class="form-control" placeholder="Type">
+            <option *ngFor="let type of listOfType" [value]="type">{{ type }}</option>
+          </select>
+          <small *ngIf="validateForm.controls['type'].hasError('required') && validateForm.controls['type'].touched" class="text-danger">
+            This Input Is Required!
+          </small>
+        </div>
+      </div>
+
+      <!-- Color Filter -->
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="color" style="font-weight: bold; color: #003973;">Color</label>
+          <select id="color" formControlName="color" class="form-control" placeholder="Color">
+            <option *ngFor="let color of listOfColor" [value]="color">{{ color }}</option>
+          </select>
+          <small *ngIf="validateForm.controls['color'].hasError('required') && validateForm.controls['color'].touched" class="text-danger">
+            This Input Is Required!
+          </small>
+        </div>
+      </div>
+
+      <!-- Transmission Filter -->
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="transmission" style="font-weight: bold; color: #003973;">Transmission</label>
+          <select id="transmission" formControlName="transmission" class="form-control" placeholder="Transmission">
+            <option *ngFor="let transmission of listOfTransmission" [value]="transmission">{{ transmission }}</option>
+          </select>
+          <small *ngIf="validateForm.controls['transmission'].hasError('required') && validateForm.controls['transmission'].touched" class="text-danger">
+            This Input Is Required!
+          </small>
+        </div>
+      </div>
+
+      <!-- Search Button -->
+      <div class="col-12 text-end mt-3">
+        <button type="button" class="btn btn-primary fw-bold" (click)="searchCar()" style="padding-bottom:12px">
+          Search Car
+        </button>
+      </div>
     </div>
-  </nz-spin>
+  </div>
+
 
   <!-- Car Listing Section -->
   <div class="row gy-4">
@@ -94,7 +101,6 @@
               <strong>Year:</strong> {{car.modelYear | date: 'yyyy'}}
             </p>
           </div>
-
         </div>
       </div>
     </div>
