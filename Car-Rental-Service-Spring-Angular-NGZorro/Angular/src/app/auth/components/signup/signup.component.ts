@@ -12,32 +12,32 @@ export class SignupComponent {
   isSpinning: boolean = false;
   signupForm!: FormGroup;
 
-  constructor(private fb: FormBuilder,
-    private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit() {
     this.signupForm = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       name: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      confirmPassword: [null, [Validators.required, this.confirmationValidate]],
-    })
+      password: [null, [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/)]],
+      confirmPassword: [null, [Validators.required, this.confirmationValidate.bind(this)]],
+    });
   }
 
-  confirmationValidate = (control: FormControl): { [s: string]: boolean } => {
+  confirmationValidate(control: FormControl): { [s: string]: boolean } | null {
     if (!control.value) {
       return { required: true };
     } else if (control.value !== this.signupForm.controls['password'].value) {
-      return { confirm: true, error: true };
+      return { confirm: true };
     }
-    return {};
-  };
+    return null;
+  }
 
   signup() {
     console.log(this.signupForm.value);
+    this.isSpinning = true;
     this.authService.register(this.signupForm.value).subscribe((res) => {
       console.log(res);
-    })
+      this.isSpinning = false;
+    });
   }
-
 }

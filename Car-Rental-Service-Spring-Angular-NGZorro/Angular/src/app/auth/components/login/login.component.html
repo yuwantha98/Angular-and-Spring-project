@@ -1,39 +1,40 @@
 <div class="top-image">
-  <img src="../../../../../assets/images/1.jpg" >
+  <img src="../../../../../assets/images/1.jpg">
 </div>
 
-
 <div class="bg" style="background-color: #F8F8F8;">
-    <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="Working...">
+  <!-- Spinner Replacement -->
+  <div *ngIf="isSpinning" class="spinner">
+    <p>Working...</p>
+  </div>
 
-        <div class="parent">
-            <div class="child">
-                <div nz-row class="imgDiv">
-                    <div nz-col nzSpan="24">
-                        <h1 style="text-align: center; font-weight: bold; color:#254e7a">Login</h1>
-                    </div>
-                </div>
-                <form nz-form [formGroup]="loginform">
-                    <nz-form-item>
-                        <nz-form-control nzErrorTip="Please input your email!">
-                            <nz-input-group nzPrefixIcon="user">
-                                <input type="text" nz-input placeholder="Email" formControlName="email" />
-                            </nz-input-group>
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-control nzErrorTip="Please input your Password!">
-                            <nz-input-group nzPrefixIcon="lock">
-                                <input type="password" nz-input placeholder="Password" formControlName="password" />
-                            </nz-input-group>
-                        </nz-form-control>
-                    </nz-form-item>
+  <div class="parent" *ngIf="!isSpinning">
+    <div class="child">
+      <div class="imgDiv">
+        <h1 style="text-align: center; font-weight: bold; color:#254e7a">Login</h1>
+      </div>
 
-                    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="login()"
-                        [disabled]="loginform.invalid">Log in</button>
-                    Or <a routerLink="/register"> register now! </a>
-                </form>
-            </div>
+      <form [formGroup]="loginform">
+        <div class="form-item">
+          <label for="email" style="font-weight: bold; color: #003973;">Email</label>
+          <input type="text" id="email" placeholder="Email" formControlName="email" class="form-control" />
+          <small *ngIf="loginform.controls['email'].invalid && loginform.controls['email'].touched" class="error-tip">
+            Please input your email!
+          </small>
         </div>
-    </nz-spin>
+
+        <div class="form-item">
+          <label for="password" style="font-weight: bold; color: #003973;">Password</label>
+          <input type="password" id="password" placeholder="Password" formControlName="password" class="form-control" />
+          <small *ngIf="loginform.controls['password'].invalid && loginform.controls['password'].touched" class="error-tip">
+            Please input your Password!
+          </small>
+        </div>
+
+        <button type="button" class="btn login-form-button login-form-margin" (click)="login()"
+                [disabled]="loginform.invalid">Log in</button>
+        Or <a routerLink="/register"> register now! </a>
+      </form>
+    </div>
+  </div>
 </div>

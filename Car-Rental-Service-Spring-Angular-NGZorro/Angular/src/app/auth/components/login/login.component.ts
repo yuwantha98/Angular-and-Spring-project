@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { NzMessageService } from "ng-zorro-antd/message";
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,38 +14,53 @@ export class LoginComponent {
   isSpinning: boolean = false;
   loginform!: FormGroup;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
-    private message: NzMessageService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loginform = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]]
-    })
+    });
   }
 
   login() {
     console.log(this.loginform.value);
-    this.authService.login(this.loginform.value).subscribe((res) => {
-      console.log(res);
-      if (res.userId != null) {
-        const user = {
-          id: res.userId,
-          role: res.userRole
+    this.isSpinning = true;
+
+    this.authService.login(this.loginform.value).subscribe(
+      (res) => {
+        this.isSpinning = false;
+        if (res.userId != null) {
+          const user = {
+            id: res.userId,
+            role: res.userRole
+          };
+          StorageService.saveToken(res.jwt);
+          StorageService.saveUser(user);
+          console.log(res.userRole);
+          if (res.userRole == "ADMIN") {
+            this.router.navigateByUrl("/admin/dashboard");
+          } else {
+            this.router.navigateByUrl("/customer/dashboard");
+          }
+        } else {
+          this.showMessage("Bad credentials", "error");
         }
-        StorageService.saveToken(res.jwt);
-        StorageService.saveUser(user);
-        console.log(res.userRole);
-        if (res.userRole == "ADMIN")
-          this.router.navigateByUrl("/admin/dashboard");
-        else
-          this.router.navigateByUrl("/customer/dashboard");
-      } else {
-        this.message.error("Bad credentials", { nzDuration: 5000 })
+      },
+      (error) => {
+        this.isSpinning = false;
+        this.showMessage("Login failed. Please try again.", "error");
       }
-    })
+    );
   }
 
+  showMessage(message: string, type: 'success' | 'error') {
+    // Custom function to display messages as needed
+    // You can replace this with a modal, toast, or any notification library you prefer
+    alert(message); // Placeholder for demonstration; replace with a custom solution
+  }
 }
