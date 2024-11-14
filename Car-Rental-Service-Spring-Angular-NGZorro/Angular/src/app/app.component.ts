@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'reatacar-angular';
+  title = 'rentacar-angular';
 
   constructor(private router: Router) { }
 
