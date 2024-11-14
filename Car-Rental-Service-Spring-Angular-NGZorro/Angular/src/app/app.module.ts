@@ -14,10 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroModule } from "./NgZorroModule";
 
-
-
-
-
 registerLocaleData(en);
 
 @NgModule({

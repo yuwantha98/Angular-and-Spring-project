@@ -3,7 +3,7 @@
 </div>
 
 <div class="bg" style="background-color: #F8F8F8;">
-  <!-- Spinner Replacement -->
+
   <div *ngIf="isSpinning" class="spinner">
     <p>Working...</p>
   </div>
@@ -15,7 +15,6 @@
       </div>
 
       <form [formGroup]="signupForm">
-        <!-- Email Field -->
         <div class="form-item">
           <label for="email" style="font-weight: bold; color: #003973;">E-mail</label>
           <input type="text" id="email" placeholder="E-mail" formControlName="email" class="form-control" />
