@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class SignupComponent {
 
   isSpinning: boolean = false;
-  signupForm!: FormGroup;
+  signupForm: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 

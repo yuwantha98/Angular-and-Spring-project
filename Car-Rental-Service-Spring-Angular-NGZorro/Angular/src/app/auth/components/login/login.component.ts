@@ -59,8 +59,6 @@ export class LoginComponent {
   }
 
   showMessage(message: string, type: 'success' | 'error') {
-    // Custom function to display messages as needed
-    // You can replace this with a modal, toast, or any notification library you prefer
-    alert(message); // Placeholder for demonstration; replace with a custom solution
+    alert(message);
   }
 }
